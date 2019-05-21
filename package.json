@@ -2,13 +2,18 @@
   "name": "boilerplate",
   "version": "1.0.0",
   "description": "",
+  "main": "build/dist/mergecalc.js",
+  "files": [
+    "build/dist/mergecalc.js"
+  ],
   "scripts": {
     "test": "nyc --reporter=html --report-dir reports/coverage mocha",
     "dist": "browserify src/calculate.js --standalone calc -o ./build/dist/mergecalc.js",
     "doc": "jsdoc ./src/*.js --destination build/docs",
     "lint": "eslint src/** -f html -o reports/lint.html",
     "lintFix": "eslint src/** --fix",
-    "build": "npm run lint && npm run test && npm run doc && npm run dist"
+    "build": "npm run lint && npm run test && npm run doc && npm run dist",
+    "prepublish": "num run build"
   },
   "author": "",
   "license": "MIT",
