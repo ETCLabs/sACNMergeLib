@@ -1,30 +1,15 @@
 <!DOCTYPE html>
-<!-- ^ Declaring this DOCTYPE means this is a HTML5 page. -->
 <html>
     <head>
-        <!-- This will load your scripts into the document. -->
-        <script src="bundle.js"></script>
-
-        <!--
-            In a HTML5 page, you don't need to include the
-            'type="text/javascript"' attribute on script tags.
-            They're treated as having that by default, unless you say otherwise.
-        -->
+        <script src="mergecalc.js"></script>
     </head>
     <body>
-        <!--
-            You could also include your scripts here, but I'll
-            just leave these commented out since they're already included.
-        <script src="js1.js"></script>
-        <script src="js2.js"></script>
-        -->
         <script>
           console.log("Debug");
-          console.log(myBundle.myFunc());
+          const x = {
+              num: 1
+          }
+          console.log(calc.calculate([x]));
         </script>
-        <!--
-            You don't need 'language="javascript"' on a script tag.
-            Use the type attribute, or nothing in a HTML5 page.
-        -->
     </body>
 </html>

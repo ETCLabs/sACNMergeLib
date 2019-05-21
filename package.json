@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "nyc --reporter=html --report-dir reports/coverage mocha",
-    "dist": "browserify src/calculate.js --standalone calc > ./dist/bundle.js",
+    "dist": "browserify src/calculate.js --standalone calc -o ./build/dist/mergecalc.js",
     "doc": "jsdoc ./src/*.js --destination build/docs",
     "lint": "eslint src/** -f html -o reports/lint.html",
     "lintFix": "eslint src/** --fix",
