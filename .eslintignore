@@ -1,0 +1,4 @@
+/build/**
+/test/**
+/tmp/**
+!.eslintrc.js
