@@ -2,13 +2,13 @@
   "name": "boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "build/dist/mergecalc.js",
+  "main": "build/dist/mergelib.js",
   "files": [
-    "build/dist/mergecalc.js"
+    "build/dist/mergelib.js"
   ],
   "scripts": {
     "test": "nyc --reporter=html --report-dir reports/coverage mocha",
-    "dist": "browserify src/calculate.js --standalone calc -o ./dist/mergecalc.bundle.js",
+    "dist": "browserify src/mergelib.js --standalone calc -o ./dist/mergelib.bundle.js",
     "doc": "jsdoc src -r -d build/docs",
     "lint": "eslint ./src/** -f html -o reports/lint.html",
     "lintFix": "eslint src/** --fix",

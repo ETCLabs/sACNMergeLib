@@ -42,11 +42,58 @@ var merge_peraddress = function merge_peraddress(sources) {
  * @returns {number[]} 
  */
 var merge_peruniverse = function merge_peruniverse(sources) {
+  //console.log("new run");
   if (sources === undefined || sources === null || sources.length === 0)
   {
     return [];
   }
-  return sources[0].values;  
+  var maxlen = 0;
+  var highestPriority = -1;
+  var highPriorityCount = 0;
+  sources.forEach(function(source){
+    //console.log("Looking at source with priority" + source.priority);
+    if (source.values.length > maxlen)
+      maxlen = source.values.length;
+    if (source.priority === undefined)
+      source.priority = 0;
+    if (source.priority > highestPriority)
+    {
+      highestPriority = source.priority;
+      highPriorityCount = 1;
+      //console.log("Highest priority is now " + source.priority) ;
+    }
+    else if (source.priority === highestPriority)
+    {
+      highPriorityCount++;
+    }
+  });
+  if (highPriorityCount === 1)
+  {
+    for (var i = 0; i < sources.length; i++)
+    {
+      var source = sources[i];
+      //console.log("Searching for highest priority " + highestPriority + " with current source " + source.priority);
+      if (source.priority === highestPriority)
+        return source.values;
+    }
+  }
+  else
+  {
+    // TODO: Merge.
+    for (i = 0; i < sources.length; i++)
+    {
+      source = sources[i];
+      //console.log("Searching for highest priority " + highestPriority + " with current source " + source.priority);
+      //console.log(source.values);
+      if (source.priority === highestPriority)
+      {
+        //console.log("found it");
+        return source.values;
+      }
+    }
+  }
+  return []
+
 }
 
 /**
@@ -62,37 +109,20 @@ var merge_peruniverse = function merge_peruniverse(sources) {
 var merge = function merge(sources, peraddress) {
   if (peraddress === undefined)
   {
-    peraddress = true
+    peraddress = true;
   }
   if (peraddress)
   {
-    return merge_peraddress(sources)
+    return merge_peraddress(sources);
   } 
   else
   {
-    return merge_peruniverse(sources)
+    return merge_peruniverse(sources);
   }
 }
 
-/**
- * Example function that takes an array of objects and
- * returns an array.
- * @param {TestObj[]} input an array of input objects
- * @returns {number[]} an array of numbers
- */
-var calculate = function calculate(input) {
-  if (input === undefined || input === null) {
-    return [];
-  }
-
-  var rtn = [];
-  input.forEach(function (obj) {
-    rtn.push(obj.num + 2);
-  });
-  return rtn;
-};
-
 module.exports = {
-  calculate: calculate,
-  merge: merge
+  merge: merge, 
+  merge_peraddress: merge_peraddress,
+  merge_peruniverse: merge_peruniverse
 };

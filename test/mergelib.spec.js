@@ -1,4 +1,4 @@
-const calc = require("../src/calculate");
+const calc = require("../src/mergelib");
 const {assert} = require("chai");
 
 describe("Test Per-Address Priority methods", () =>{
@@ -19,9 +19,9 @@ describe("Test Per-Universe Priority methods", () => {
     assert.deepEqual([], calc.merge());
   });
   it ("Simple one universe tests.", () => {
-    assert.deepEqual([1,2,3], calc.merge([{'values':[1,2,3]}], false));
     assert.deepEqual([1,2,3], calc.merge([{'values':[1,2,3], 'priority': 100}], false));
-    //assert.deepEqual([], calc.merge([{'values':[1,2,3], 'priority': 0}], false));
+    assert.deepEqual([1,2,3], calc.merge([{'values':[1,2,3]}], false));
+    assert.deepEqual([1,2,3], calc.merge([{'values':[1,2,3], 'priority': 0}], false));
     
   });
 
@@ -52,35 +52,5 @@ describe("Test Per-Universe Priority methods", () => {
         'priority': 5
       }], false));
   })
-
-})
-
-describe("Example of testing a module", () => {
-
-  it("Should return a number", () => {
-
-    const testObj = {
-      num: 4,
-    }
-
-    const rtn = calc.calculate([testObj]);
-    assert.equal(rtn.length, 1, "Should have one element");
-    assert.equal(rtn[0], 6);
-
-  });
-
-  it("Should return an empty array if the input is undefined", () => {
-
-    const rtn = calc.calculate(undefined);
-    assert.equal(rtn.length, 0);
-
-  });
-
-  it("Should return an empty array if the input is null", () => {
-
-    const rtn = calc.calculate(null);
-    assert.equal(rtn.length, 0);
-    
-  });
 
 })
