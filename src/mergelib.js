@@ -16,6 +16,15 @@
 *  
 */
 
+var getArray = function getArray(length, value) {
+  var x = Array(length);
+  for (var i = 0; i < length; i++)
+  {
+    x[i] = value;
+  }
+  return x;
+}
+
 /**
  * Merges two universes of sACN input.
  * Uses perAddressPriority if available for a given source and the universe priority if not.
@@ -29,7 +38,15 @@ var merge_peraddress = function merge_peraddress(sources) {
   {
     return [];
   }
-  return sources[0].values;  
+  for (var i = 0; i < sources.length; i++)
+  {
+    if (sources[i].perAddressPriority === undefined)
+    {
+      sources[i].perAddressPriority = getArray(sources[i].values.length, sources[i].priority);
+    }
+  }
+  console.log(sources);
+  return merge_allperaddr(sources);
 }
 
 
@@ -47,6 +64,15 @@ var merge_peruniverse = function merge_peruniverse(sources) {
   {
     return [];
   }
+  for (var i = 0; i < sources.length; i++)
+  {
+    var pri = sources[i].priority
+    if (pri === undefined)
+      pri = 0.5;
+    sources[i].perAddressPriority = getArray(sources[i].values.length, pri);
+  }
+  return merge_allperaddr(sources);
+  /*
   var maxlen = 0;
   var highestPriority = -1;
   var highPriorityCount = 0;
@@ -91,9 +117,49 @@ var merge_peruniverse = function merge_peruniverse(sources) {
         return source.values;
       }
     }
-  }
-  return []
+  }*/
+  return [];
+}
 
+/**
+ * Merges two universes of sACN input.
+ * Assumes that all sources have had their inputs defined by 
+ * 
+ * @param {SACNUniverse[]} sources 
+ * @returns {number[]} Merged values.
+ */
+var merge_allperaddr = function merge_allperaddr(sources) {
+  
+  var maxlen = 0;
+  sources.forEach(function(source){
+    //console.log("Looking at source with priority" + source.priority);
+    if (source.values.length > maxlen)
+      maxlen = source.values.length;
+  });
+
+  var outarr = [];
+  for (var address = 0; address < maxlen; address++)
+  {
+    var high_pri = 0;
+    var high_val = 0;
+    for (var source_idx = 0; source_idx < sources.length; source_idx++)
+    {
+      if (sources[source_idx].perAddressPriority.length > address && sources[source_idx].values.length > address)
+      {
+        if(sources[source_idx].perAddressPriority[address] > high_pri)
+        {
+          high_pri = sources[source_idx].perAddressPriority[address];
+          high_val = sources[source_idx].values[address];
+        }
+        else if (sources[source_idx].perAddressPriority[address] === high_pri && sources[source_idx].values[address] > high_val)
+        {
+          high_val = sources[source_idx].values[address];
+        }
+      }
+    }
+    outarr.push(high_val);
+  }
+  return outarr;
 }
 
 /**
