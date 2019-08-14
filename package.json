@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "nyc --reporter=html --report-dir reports/coverage mocha --slow 0",
-    "dist": "browserify src/mergelib.js --standalone calc -o ./dist/mergelib.bundle.js",
+    "dist": "browserify src/mergelib.js --standalone mergelib -o ./dist/mergelib.bundle.js",
     "doc": "jsdoc src -r -d build/docs",
     "lint": "eslint ./src/** -f html -o reports/lint.html",
     "lintFix": "eslint src/** --fix",

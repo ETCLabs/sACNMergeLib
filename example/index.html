@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="mergecalc.bundle.js"></script>
+        <script src="mergelib.bundle.js"></script>
     </head>
     <body>
         <script>
           console.log("Debug");
-          const x = {
-              num: 1
-          }
-          console.log(calc.calculate([x]));
+          const a = {
+              values: [1, 2, 3],
+              priority: 100
+          };
+          const b = {
+              values: [3, 1, 4],
+              priority: 100,
+              perAddressPriority: [99, 200, 100]
+          };
+          console.log("Merging values, expected values are 1 (because b has lower priority at slot 1), 1 (b has higher priority at slot 2), 4 (because priorities are equal and 4 is larger)");
+          console.log(mergelib.merge([a, b]));
+
+          console.log("Now merging while ignoring per address priority. In this case the priorities are equal, so we do HTP to get [3, 2, 4]");
+          console.log(mergelib.merge([a, b], false));
         </script>
     </body>
 </html>
