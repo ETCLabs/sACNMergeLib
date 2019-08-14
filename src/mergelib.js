@@ -1,12 +1,6 @@
 "use strict";
 
 /**
- * @typedef TestObj
- * @type {Object}
- * @property {number} num Some number.
- */
-
-/**
 * 
 * @typedef SACNUniverse
 * @type {Object}
@@ -45,7 +39,6 @@ var merge_peraddress = function merge_peraddress(sources) {
       sources[i].perAddressPriority = getArray(sources[i].values.length, sources[i].priority);
     }
   }
-  console.log(sources);
   return merge_allperaddr(sources);
 }
 
@@ -67,58 +60,11 @@ var merge_peruniverse = function merge_peruniverse(sources) {
   for (var i = 0; i < sources.length; i++)
   {
     var pri = sources[i].priority
-    if (pri === undefined)
+    if (pri === undefined || pri === 0)
       pri = 0.5;
     sources[i].perAddressPriority = getArray(sources[i].values.length, pri);
   }
   return merge_allperaddr(sources);
-  /*
-  var maxlen = 0;
-  var highestPriority = -1;
-  var highPriorityCount = 0;
-  sources.forEach(function(source){
-    //console.log("Looking at source with priority" + source.priority);
-    if (source.values.length > maxlen)
-      maxlen = source.values.length;
-    if (source.priority === undefined)
-      source.priority = 0;
-    if (source.priority > highestPriority)
-    {
-      highestPriority = source.priority;
-      highPriorityCount = 1;
-      //console.log("Highest priority is now " + source.priority) ;
-    }
-    else if (source.priority === highestPriority)
-    {
-      highPriorityCount++;
-    }
-  });
-  if (highPriorityCount === 1)
-  {
-    for (var i = 0; i < sources.length; i++)
-    {
-      var source = sources[i];
-      //console.log("Searching for highest priority " + highestPriority + " with current source " + source.priority);
-      if (source.priority === highestPriority)
-        return source.values;
-    }
-  }
-  else
-  {
-    // TODO: Merge.
-    for (i = 0; i < sources.length; i++)
-    {
-      source = sources[i];
-      //console.log("Searching for highest priority " + highestPriority + " with current source " + source.priority);
-      //console.log(source.values);
-      if (source.priority === highestPriority)
-      {
-        //console.log("found it");
-        return source.values;
-      }
-    }
-  }*/
-  return [];
 }
 
 /**
@@ -136,11 +82,12 @@ var merge_allperaddr = function merge_allperaddr(sources) {
     if (source.values.length > maxlen)
       maxlen = source.values.length;
   });
+  maxlen = Math.min(maxlen, 512);
 
   var outarr = [];
   for (var address = 0; address < maxlen; address++)
   {
-    var high_pri = 0;
+    var high_pri = 0.1;
     var high_val = 0;
     for (var source_idx = 0; source_idx < sources.length; source_idx++)
     {

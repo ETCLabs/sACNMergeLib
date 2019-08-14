@@ -13,9 +13,9 @@ npm install
 
 ## Files
 
-`./src/calculate.js`: example implementation of the logic
+`./src/mergelib.js`: example implementation of the logic
 
-`./test/calculate.spec.js`: unit tests
+`./test/mergelib.spec.js`: unit tests
 
 `./example`: An example HTML page calling into the lib
 

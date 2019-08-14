@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate",
+  "name": "mergelib",
   "version": "1.0.0",
   "description": "",
   "main": "build/dist/mergelib.js",
@@ -7,7 +7,7 @@
     "build/dist/mergelib.js"
   ],
   "scripts": {
-    "test": "nyc --reporter=html --report-dir reports/coverage mocha",
+    "test": "nyc --reporter=html --report-dir reports/coverage mocha --slow 0",
     "dist": "browserify src/mergelib.js --standalone calc -o ./dist/mergelib.bundle.js",
     "doc": "jsdoc src -r -d build/docs",
     "lint": "eslint ./src/** -f html -o reports/lint.html",
