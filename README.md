@@ -6,8 +6,8 @@ NodeJS (for NPM) [verison 10.x](https://nodejs.org/en/)
 
 ## Setting it up
 ```
-git clone https://github.com/creising/module-boilerplate
-cd module-boilerplate
+git clone https://github.com/ETClabs/sACNMergeLib
+cd sACNMergeLib
 npm install
 ```
 
