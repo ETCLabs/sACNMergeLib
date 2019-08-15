@@ -1,3 +1,9 @@
+sACNMergeLib is a javascript library to merge streams of streaming ACN to determine the values that should be output onto the DMX line. To use, first build following the directions below. Then include the resulting bundle file from the dist folder and call the `merge` function from it. See the example page for more details.
+
+# About this ETCLabs Project
+
+sACNMergeLib is designed to interact with ETC products, but it is not official ETC software. For challenges using, integrating, compiling, or modifying items in this project, we encourage posting on the Issues page. sACNMergeLib is a community-supported initiative, and the community is the best place to ask for help!
+
 # Getting Started
 
 ## What you need
